@@ -1,0 +1,18 @@
+FROM node:22.14.0-alpine
+
+WORKDIR /app
+
+# Copy package files and install dependencies
+COPY package*.json ./
+RUN npm install express cors
+
+# Copy the rest of the application
+COPY . .
+
+# Make sure we have the right type in package.json
+RUN echo '{"type":"module"}' > /app/package.json.tmp && \
+    cat /app/package.json >> /app/package.json.tmp && \
+    mv /app/package.json.tmp /app/package.json
+
+EXPOSE 3001
+CMD ["node", "server.js"]
