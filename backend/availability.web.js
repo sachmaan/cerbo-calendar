@@ -1181,3 +1181,24 @@ class AppointmentRequest {
     };
   }
 }
+
+// Export internal helper functions for testing
+export {
+  calculateAvailableTimeSlots,
+  isTimeSlotAvailable,
+  isBufferAvailable,
+  calculateBufferStartTime,
+  isTimeSlotOccupied,
+  getConflictingAppointments,
+  calculateEndTime,
+  createTask,
+  checkIfBufferNeeded,
+  checkBufferAvailability,
+  wouldExceedConsecutiveWork,
+  wouldCauseConsecutiveWork,
+  getAppointmentTypesToIgnore,
+  findAppointmentTypeByInternalName,
+  getAppointmentTypeIdFromInternalName,
+  PhysioSpaAppointmentType,  // Export the classes
+  ActualAvailableTimeSlot
+};

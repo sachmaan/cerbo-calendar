@@ -40,13 +40,13 @@ function formatDateForDisplay(dateString) {
 }
 
 // Function to get the next two weeks date range
-function getNextTwoWeeks() {
+function getNextTwoDays() {
   const today = new Date();
   const startDate = today.toISOString().split('T')[0];
   
-  const twoWeeksLater = new Date(today);
-  twoWeeksLater.setDate(today.getDate() + 14);
-  const endDate = twoWeeksLater.toISOString().split('T')[0];
+  const twoDaysLater = new Date(today);
+  twoDaysLater.setDate(today.getDate() + 2);
+  const endDate = twoDaysLater.toISOString().split('T')[0];
   
   return { startDate, endDate };
 }
@@ -83,7 +83,7 @@ async function main() {
     console.log(`\nSelected: ${selectedType.displayName} (ID: ${selectedType.id})`);
 
     // Get date range for availability check
-    const { startDate, endDate } = getNextTwoWeeks();
+    const { startDate, endDate } = getNextTwoDays();
     console.log('\nChecking availability from', startDate, 'to', endDate);
 
     // Use Case 2: Get availability for selected appointment type
