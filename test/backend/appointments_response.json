@@ -1,6 +1,6 @@
 {
     "object": "list",
-    "total_count": 16,
+    "total_count": 17,
     "has_more": false,
     "data": [
         {
@@ -674,6 +674,48 @@
             "appointment_type": "Vagus Nerve Stem Therapy- Initial",
             "appointment_note": "Sachin Nene (sachinnene@test.com)",
             "created": "2025-03-27 17:16:00"
+        },
+        {
+            "object": "appointment",
+            "id": 130694,
+            "title": "MEETING-Fixed ",
+            "appointment_status": "confirmed",
+            "appointment_location": "",
+            "recurrance_interval": "0",
+            "recurrance_type": null,
+            "recurrance_value": null,
+            "recurrance_group_id": null,
+            "addedby": 61,
+            "datedeleted": null,
+            "dateupdated": "2025-03-27 14:18:07",
+            "patient_details": null,
+            "associated_providers": [
+                {
+                    "object": "user",
+                    "id": 61,
+                    "first_name": "Sachin",
+                    "middle_name": "",
+                    "last_name": "Nene",
+                    "prefix": "",
+                    "suffix": "",
+                    "npi": "",
+                    "email": "sachmaan@gmail.com",
+                    "is_resouce": false,
+                    "associated_by": 61,
+                    "date_associated": "2025-03-27 18:18:07",
+                    "is_active_user": true,
+                    "url_user_details": "https://prismsj.md-hq.com/api/v1/users/61"
+                }
+            ],
+            "telemedicine": {
+                "is_telemedicine": false,
+                "telemedicine_url": null
+            },
+            "start_date_time": "2025-03-28 17:30:00",
+            "end_date_time": "2025-03-28 18:00:00",
+            "appointment_type": "MEETING-Fixed",
+            "appointment_note": "",
+            "created": "2025-03-27 18:18:07"
         }
     ]
 }
