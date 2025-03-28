@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package*.json ./
-RUN npm install express cors
+RUN npm install && npm install dotenv uuid express-session
 
 # Copy the rest of the application
 COPY . .

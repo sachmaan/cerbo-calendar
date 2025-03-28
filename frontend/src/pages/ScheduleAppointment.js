@@ -68,7 +68,7 @@ const ScheduleAppointment = () => {
           
           // Extract unique dates from available slots
           const dates = [...new Set(response.availableSlots.map(slot => 
-            new Date(slot.startTime).toISOString().split('T')[0]
+            new Date(slot.primaryBooking ? slot.primaryBooking.startTime : slot.startTime).toISOString().split('T')[0]
           ))];
           
           setAvailableDates(dates.map(date => new Date(date)));
@@ -99,6 +99,7 @@ const ScheduleAppointment = () => {
 
   // Handle time slot selection
   const handleSlotSelect = (slot) => {
+    console.log('Selected slot:', slot);  // Debug the selected slot
     setSelectedSlot(slot);
   };
 
@@ -148,11 +149,14 @@ const ScheduleAppointment = () => {
     try {
       setBookingInProgress(true);
       
+      console.log('Booking with slot ID:', selectedSlot.id);  // Debug the ID being sent
+      
+      // The API now expects just the UUID of the selected slot
+      // instead of the whole slot object or its properties
       const response = await bookAppointment(
         bookingForm.patientName,
         bookingForm.email,
-        selectedSlot.startTime,
-        appointmentTypeId
+        selectedSlot.id  // Use the UUID assigned by the server
       );
       
       if (response.success) {
@@ -178,7 +182,9 @@ const ScheduleAppointment = () => {
 
   // Filter time slots for the selected date
   const filteredSlots = availableSlots.filter(slot => {
-    const slotDate = new Date(slot.startTime);
+    // Get start time from primaryBooking if available, otherwise fall back to legacy startTime
+    const startTimeStr = slot.primaryBooking ? slot.primaryBooking.startTime : slot.startTime;
+    const slotDate = new Date(startTimeStr);
     return slotDate.toISOString().split('T')[0] === selectedDate.toISOString().split('T')[0];
   });
 
@@ -186,6 +192,12 @@ const ScheduleAppointment = () => {
   const formatTime = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
+  // Get formatted start time from a time slot
+  const getSlotStartTime = (slot) => {
+    const startTimeStr = slot.primaryBooking ? slot.primaryBooking.startTime : slot.startTime;
+    return formatTime(startTimeStr);
   };
 
   // Tile class for the calendar to highlight dates with available slots
@@ -238,16 +250,19 @@ const ScheduleAppointment = () => {
             <p>No available time slots for selected date</p>
           ) : (
             <div className="timeslot-grid">
-              {filteredSlots.map((slot) => (
-                <div 
-                  key={slot.id} 
-                  className={`timeslot ${selectedSlot?.id === slot.id ? 'selected' : ''}`}
-                  onClick={() => handleSlotSelect(slot)}
-                >
-                  {formatTime(slot.startTime)}
-                  {slot.hasDualBooking && <span className="dual-badge">Dual</span>}
-                </div>
-              ))}
+              {filteredSlots.map((slot) => {
+                console.log('Rendering time slot:', slot); // Debug each slot
+                return (
+                  <div 
+                    key={slot.id} 
+                    className={`timeslot ${selectedSlot?.id === slot.id ? 'selected' : ''}`}
+                    onClick={() => handleSlotSelect(slot)}
+                  >
+                    {getSlotStartTime(slot)}
+                    {slot.hasBuffer && <span className="buffer-indicator" title="Includes buffer time">🕒</span>}
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
@@ -288,7 +303,7 @@ const ScheduleAppointment = () => {
             <div className="booking-summary">
               <h3>Appointment Summary</h3>
               <p><strong>Date:</strong> {selectedDate.toLocaleDateString()}</p>
-              <p><strong>Time:</strong> {formatTime(selectedSlot.startTime)}</p>
+              <p><strong>Time:</strong> {getSlotStartTime(selectedSlot)}</p>
               <p><strong>Type:</strong> {appointmentType?.displayName}</p>
             </div>
             
