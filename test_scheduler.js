@@ -40,13 +40,13 @@ function formatDateForDisplay(dateString) {
 }
 
 // Function to get the next two weeks date range
-function getNextTwoWeeks() {
+function getNextTwoDays() {
   const today = new Date();
   const startDate = today.toISOString().split('T')[0];
   
-  const twoWeeksLater = new Date(today);
-  twoWeeksLater.setDate(today.getDate() + 14);
-  const endDate = twoWeeksLater.toISOString().split('T')[0];
+  const twoDaysLater = new Date(today);
+  twoDaysLater.setDate(today.getDate() + 2);
+  const endDate = twoDaysLater.toISOString().split('T')[0];
   
   return { startDate, endDate };
 }
@@ -83,7 +83,7 @@ async function main() {
     console.log(`\nSelected: ${selectedType.displayName} (ID: ${selectedType.id})`);
 
     // Get date range for availability check
-    const { startDate, endDate } = getNextTwoWeeks();
+    const { startDate, endDate } = getNextTwoDays();
     console.log('\nChecking availability from', startDate, 'to', endDate);
 
     // Use Case 2: Get availability for selected appointment type
@@ -102,22 +102,25 @@ async function main() {
       return;
     }
 
-    // Display available time slots in 3 columns
-    console.log('\nAvailable time slots:');
-    const columnWidth = 35;
-    const numSlots = availableSlots.length;
-    const rowsNeeded = Math.ceil(numSlots / 3);
-
-    for (let row = 0; row < rowsNeeded; row++) {
+    // Display available time slots
+    console.log(`Found ${availableSlots.length} available time slot(s):`);
+    
+    // Create a table for displaying available slots
+    const slotsPerRow = 3;
+    const rows = Math.ceil(availableSlots.length / slotsPerRow);
+    
+    for (let i = 0; i < rows; i++) {
       const rowOutput = [];
-      for (let col = 0; col < 3; col++) {
-        const index = row + (col * rowsNeeded);
-        if (index < numSlots) {
-          const slot = availableSlots[index];
-          const timeStr = formatDateForDisplay(slot.startTime);
-          rowOutput.push(`${(index + 1).toString().padStart(2)}. ${timeStr}`.padEnd(columnWidth));
+      for (let j = 0; j < slotsPerRow; j++) {
+        const slotIndex = i * slotsPerRow + j;
+        if (slotIndex < availableSlots.length) {
+          const slot = availableSlots[slotIndex];
+          const hasBuffer = slot.buffer !== null;
+          
+          // Format slot info with primary booking appointment type
+          rowOutput.push(`${slotIndex + 1}. ${formatDateForDisplay(slot.startTime)}${hasBuffer ? ' [+buffer]' : ''}`.padEnd(30));
         } else {
-          rowOutput.push(''.padEnd(columnWidth));
+          rowOutput.push(''.padEnd(30));
         }
       }
       console.log(rowOutput.join(''));
@@ -131,7 +134,12 @@ async function main() {
     }
 
     const selectedSlot = availableSlots[slotSelection];
-    console.log(`\nSelected time slot: ${formatDateForDisplay(selectedSlot.startTime)}`);
+    console.log(`\nSelected slot: ${formatDateForDisplay(selectedSlot.startTime)} - ${formatDateForDisplay(selectedSlot.endTime)}`);
+    
+    // Display buffer information if present
+    if (selectedSlot.buffer) {
+      console.log('This booking includes a buffer appointment');
+    }
 
     // Get user details for booking
     const patientName = await askQuestion('\nEnter patient name: ');
@@ -151,24 +159,28 @@ async function main() {
     const bookingResponse = await bookAppointment(
       patientName,
       patientEmail,
-      selectedSlot.startTime,
-      selectedType.id
+      selectedSlot
     );
 
     // Display booking result
     if (bookingResponse.success) {
       console.log('\nAppointment booked successfully!');
       console.log(`Appointment details:`);
-      console.log(`- Patient: ${patientName}`);
-      console.log(`- Email: ${patientEmail}`);
-      console.log(`- Time: ${formatDateForDisplay(selectedSlot.startTime)}`);
+      console.log(`- Patient: ${bookingResponse.appointment.patientName}`);
+      console.log(`- Email: ${bookingResponse.appointment.email}`);
+      console.log(`- Date: ${formatDateForDisplay(bookingResponse.appointment.startTime)} - ${formatDateForDisplay(bookingResponse.appointment.endTime)}`);
       console.log(`- Type: ${selectedType.displayName}`);
       
-      if (bookingResponse.message) {
-        console.log(`\nMessage from server: ${bookingResponse.message}`);
+      if (bookingResponse.bookingResults && bookingResponse.bookingResults.length > 1) {
+        console.log('\nAdditional bookings:');
+        bookingResponse.bookingResults.forEach((result, index) => {
+          if (result.isBuffer) {
+            console.log(`- Buffer appointment: ${formatDateForDisplay(result.startTime)} - ${formatDateForDisplay(result.endTime)}`);
+          }
+        });
       }
     } else {
-      console.error('\nFailed to book appointment:', bookingResponse.error);
+      console.log('\nFailed to book appointment:', bookingResponse.error);
     }
 
   } catch (error) {

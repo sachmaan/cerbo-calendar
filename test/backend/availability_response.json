@@ -1,0 +1,383 @@
+{
+    "object": "list",
+    "parameters": {
+        "start_date": "2025-03-27",
+        "end_date": "2025-03-29",
+        "provider_ids": [
+            61
+        ],
+        "appointment_type_ids": null
+    },
+    "gmt_timezone_offset": "-04:00",
+    "has_more": false,
+    "user_availabilies": [
+        {
+            "provider_id": 61,
+            "provider_details": {
+                "object": "user",
+                "id": "61",
+                "first_name": "Sachin",
+                "middle_name": "",
+                "last_name": "Nene",
+                "prefix": "",
+                "suffix": "",
+                "npi": "",
+                "email": "sachmaan@gmail.com",
+                "is_resource": false,
+                "has_calendar": true,
+                "user_notes": "",
+                "login_active": true,
+                "active": true,
+                "display_name_for_messages": null,
+                "display_name_for_appointments": null,
+                "created": "2025-02-14 21:35:02"
+            },
+            "availability_by_type": [
+                {
+                    "appointment_type_id": 151,
+                    "appointment_type_details": {
+                        "object": "appointment_type",
+                        "id": 151,
+                        "name": "Acupuncture.Follow-up, self-schd (50 min)",
+                        "name_portal": "Acupuncture.Follow-up",
+                        "color_hex": "b2f07e",
+                        "description": "Total length of appointment is 50 minutes",
+                        "allow_on_portal": true,
+                        "number_of_overlaps_to_allow": 0,
+                        "portal_notice": "Total length of appointment is 50 minutes",
+                        "which_providers": [
+                            61,
+                            46
+                        ],
+                        "default_length": 50,
+                        "default_status": "confirmed",
+                        "sort_order": 0,
+                        "telemedicine": false,
+                        "dateupdated": null,
+                        "is_active": true,
+                        "inactive_date": null,
+                        "created": "2025-01-23 17:11:22",
+                        "created_by": 7
+                    },
+                    "available_windows": [
+                        {
+                            "window_start": "2025-03-27 12:00:00",
+                            "window_end": "2025-03-27 12:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-27 14:00:00",
+                            "window_end": "2025-03-27 14:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-27 15:30:00",
+                            "window_end": "2025-03-27 16:00:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 10:00:00",
+                            "window_end": "2025-03-28 10:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 11:30:00",
+                            "window_end": "2025-03-28 12:00:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 13:00:00",
+                            "window_end": "2025-03-28 13:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 14:00:00",
+                            "window_end": "2025-03-28 16:00:00",
+                            "minutes_available_at_this_time": 120
+                        },
+                        {
+                            "window_start": "2025-03-29 08:00:00",
+                            "window_end": "2025-03-29 16:00:00",
+                            "minutes_available_at_this_time": 480
+                        }
+                    ]
+                },
+                {
+                    "appointment_type_id": 152,
+                    "appointment_type_details": {
+                        "object": "appointment_type",
+                        "id": 152,
+                        "name": "Acupuncture.Initial,self-schd (80 min)",
+                        "name_portal": "Acupuncture.Initial (80 min)",
+                        "color_hex": "b2f183",
+                        "description": "Total length of appointment is 80 minutes",
+                        "allow_on_portal": true,
+                        "number_of_overlaps_to_allow": 0,
+                        "portal_notice": "Total length of appointment is 80 minutes",
+                        "which_providers": [
+                            61,
+                            46
+                        ],
+                        "default_length": 80,
+                        "default_status": "confirmed",
+                        "sort_order": 0,
+                        "telemedicine": false,
+                        "dateupdated": null,
+                        "is_active": true,
+                        "inactive_date": null,
+                        "created": "2025-02-11 00:46:23",
+                        "created_by": 7
+                    },
+                    "available_windows": [
+                        {
+                            "window_start": "2025-03-27 12:00:00",
+                            "window_end": "2025-03-27 12:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-27 14:00:00",
+                            "window_end": "2025-03-27 14:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-27 15:30:00",
+                            "window_end": "2025-03-27 16:00:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 10:00:00",
+                            "window_end": "2025-03-28 10:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 11:30:00",
+                            "window_end": "2025-03-28 12:00:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 13:00:00",
+                            "window_end": "2025-03-28 13:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 14:00:00",
+                            "window_end": "2025-03-28 16:00:00",
+                            "minutes_available_at_this_time": 120
+                        },
+                        {
+                            "window_start": "2025-03-29 08:00:00",
+                            "window_end": "2025-03-29 16:00:00",
+                            "minutes_available_at_this_time": 480
+                        }
+                    ]
+                },
+                {
+                    "appointment_type_id": 140,
+                    "appointment_type_details": {
+                        "object": "appointment_type",
+                        "id": 140,
+                        "name": "Acupuncture.Telemedicine",
+                        "name_portal": "Acupuncture.Telemedicine",
+                        "color_hex": "aaf17e",
+                        "description": "",
+                        "allow_on_portal": false,
+                        "number_of_overlaps_to_allow": 0,
+                        "portal_notice": "",
+                        "which_providers": [
+                            46
+                        ],
+                        "default_length": 30,
+                        "default_status": "confirmed",
+                        "sort_order": 0,
+                        "telemedicine": true,
+                        "dateupdated": null,
+                        "is_active": true,
+                        "inactive_date": null,
+                        "created": "2024-03-05 20:06:24",
+                        "created_by": 33
+                    },
+                    "available_windows": [
+                        {
+                            "window_start": "2025-03-27 12:00:00",
+                            "window_end": "2025-03-27 12:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-27 14:00:00",
+                            "window_end": "2025-03-27 14:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-27 15:30:00",
+                            "window_end": "2025-03-27 16:00:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 10:00:00",
+                            "window_end": "2025-03-28 10:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 11:30:00",
+                            "window_end": "2025-03-28 12:00:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 13:00:00",
+                            "window_end": "2025-03-28 13:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 14:00:00",
+                            "window_end": "2025-03-28 16:00:00",
+                            "minutes_available_at_this_time": 120
+                        },
+                        {
+                            "window_start": "2025-03-29 08:00:00",
+                            "window_end": "2025-03-29 16:00:00",
+                            "minutes_available_at_this_time": 480
+                        }
+                    ]
+                },
+                {
+                    "appointment_type_id": 145,
+                    "appointment_type_details": {
+                        "object": "appointment_type",
+                        "id": 145,
+                        "name": "Vagus Nerve Stem Therapy- Follow up (30 min)",
+                        "name_portal": "Vagus Nerve Stem Therapy- Follow up",
+                        "color_hex": "9fd6be",
+                        "description": "",
+                        "allow_on_portal": false,
+                        "number_of_overlaps_to_allow": 0,
+                        "portal_notice": "",
+                        "which_providers": [
+                            61,
+                            46
+                        ],
+                        "default_length": 30,
+                        "default_status": "confirmed",
+                        "sort_order": 20,
+                        "telemedicine": false,
+                        "dateupdated": null,
+                        "is_active": true,
+                        "inactive_date": null,
+                        "created": "2024-10-25 15:24:34",
+                        "created_by": 54
+                    },
+                    "available_windows": [
+                        {
+                            "window_start": "2025-03-27 12:00:00",
+                            "window_end": "2025-03-27 12:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-27 14:00:00",
+                            "window_end": "2025-03-27 14:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-27 15:30:00",
+                            "window_end": "2025-03-27 16:00:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 10:00:00",
+                            "window_end": "2025-03-28 10:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 11:30:00",
+                            "window_end": "2025-03-28 12:00:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 13:00:00",
+                            "window_end": "2025-03-28 13:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 14:00:00",
+                            "window_end": "2025-03-28 16:00:00",
+                            "minutes_available_at_this_time": 120
+                        },
+                        {
+                            "window_start": "2025-03-29 08:00:00",
+                            "window_end": "2025-03-29 16:00:00",
+                            "minutes_available_at_this_time": 480
+                        }
+                    ]
+                },
+                {
+                    "appointment_type_id": 144,
+                    "appointment_type_details": {
+                        "object": "appointment_type",
+                        "id": 144,
+                        "name": "Vagus Nerve Stem Therapy- Initial",
+                        "name_portal": "VNS",
+                        "color_hex": "a3dcc3",
+                        "description": "",
+                        "allow_on_portal": false,
+                        "number_of_overlaps_to_allow": 0,
+                        "portal_notice": "",
+                        "which_providers": [
+                            61,
+                            46
+                        ],
+                        "default_length": 30,
+                        "default_status": "confirmed",
+                        "sort_order": 20,
+                        "telemedicine": false,
+                        "dateupdated": null,
+                        "is_active": true,
+                        "inactive_date": null,
+                        "created": "2024-10-23 18:17:56",
+                        "created_by": 54
+                    },
+                    "available_windows": [
+                        {
+                            "window_start": "2025-03-27 12:00:00",
+                            "window_end": "2025-03-27 12:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-27 14:00:00",
+                            "window_end": "2025-03-27 14:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-27 15:30:00",
+                            "window_end": "2025-03-27 16:00:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 10:00:00",
+                            "window_end": "2025-03-28 10:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 11:30:00",
+                            "window_end": "2025-03-28 12:00:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 13:00:00",
+                            "window_end": "2025-03-28 13:30:00",
+                            "minutes_available_at_this_time": 30
+                        },
+                        {
+                            "window_start": "2025-03-28 14:00:00",
+                            "window_end": "2025-03-28 16:00:00",
+                            "minutes_available_at_this_time": 120
+                        },
+                        {
+                            "window_start": "2025-03-29 08:00:00",
+                            "window_end": "2025-03-29 16:00:00",
+                            "minutes_available_at_this_time": 480
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
