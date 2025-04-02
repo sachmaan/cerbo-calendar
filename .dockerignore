@@ -1,0 +1,22 @@
+# Ignore sensitive environment files
+.env
+.env.*
+*.env
+
+# Node modules and build artifacts
+node_modules
+npm-debug.log
+frontend/build
+frontend/node_modules
+
+# Development and Git files
+.git
+.github
+.gitignore
+.vscode
+*.md
+!README.md
+
+# Other files not needed in Docker image
+*.log
+.DS_Store

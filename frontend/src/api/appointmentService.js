@@ -1,7 +1,20 @@
 import axios from 'axios';
 
-// Base API URL - will be configured in Docker to connect to the backend service
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+// API URL Configuration - uses runtime config.js if available, falls back to environment variables
+const getApiUrl = () => {
+  return window.ENV.API_URL;
+};
+
+const API_URL = getApiUrl();
+
+// Validate API URL is set
+if (!API_URL) {
+  console.error('ERROR: API_URL not configured. Please set REACT_APP_API_URL environment variable during build or provide a runtime configuration.');
+  throw new Error('API URL not configured. Please set REACT_APP_API_URL environment variable during build or provide a runtime configuration.');
+}
+
+// Configure axios to include credentials for session cookies
+axios.defaults.withCredentials = true;
 
 // Configure axios to include credentials for session cookies
 axios.defaults.withCredentials = true;

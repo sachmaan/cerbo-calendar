@@ -4,9 +4,9 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package*.json ./
-RUN npm install && npm install dotenv uuid express-session
+RUN npm install
 
-# Copy the rest of the application
+# Copy the application code without the .env file
 COPY . .
 
 # Make sure we have the right type in package.json
@@ -14,5 +14,17 @@ RUN echo '{"type":"module"}' > /app/package.json.tmp && \
     cat /app/package.json >> /app/package.json.tmp && \
     mv /app/package.json.tmp /app/package.json
 
-EXPOSE 3001
-CMD ["node", "server.js"]
+# Create a validation script to check for required environment variables
+RUN echo '#!/bin/sh' > /app/validate-env.sh && \
+    echo 'if [ -z "$CERBO_API_BASE_URL" ]; then' >> /app/validate-env.sh && \
+    echo '  echo "ERROR: CERBO_API_BASE_URL environment variable is required"' >> /app/validate-env.sh && \
+    echo '  exit 1' >> /app/validate-env.sh && \
+    echo 'fi' >> /app/validate-env.sh && \
+    echo 'if [ -z "$CERBO_API_AUTH_HEADER" ]; then' >> /app/validate-env.sh && \
+    echo '  echo "ERROR: CERBO_API_AUTH_HEADER environment variable is required"' >> /app/validate-env.sh && \
+    echo '  exit 1' >> /app/validate-env.sh && \
+    echo 'fi' >> /app/validate-env.sh && \
+    echo 'exec node server.js' >> /app/validate-env.sh && \
+    chmod +x /app/validate-env.sh
+
+CMD ["/app/validate-env.sh"]
