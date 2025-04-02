@@ -16,6 +16,9 @@ if (!API_URL) {
 // Configure axios to include credentials for session cookies
 axios.defaults.withCredentials = true;
 
+// Configure axios to include credentials for session cookies
+axios.defaults.withCredentials = true;
+
 /**
  * Fetches all available appointment types
  * @returns {Promise<Object>} Response with appointment types
@@ -60,21 +63,24 @@ export const getAvailability = async (appointmentTypeId, startDate, endDate) => 
 };
 
 /**
- * Books an appointment with the provided details
+ * Books an appointment using a slot ID from the server-side cache
  * @param {string} patientName - Name of the patient
  * @param {string} email - Email of the patient
- * @param {string} startTime - ISO string of the appointment start time
- * @param {string|number} appointmentTypeId - ID of the appointment type
+ * @param {string} slotId - ID of the selected time slot (from availability response)
  * @returns {Promise<Object>} Response with booked appointment details
  */
-export const bookAppointment = async (patientName, email, startTime, appointmentTypeId) => {
+export const bookAppointment = async (patientName, email, slotId) => {
   try {
-    const response = await axios.post(`${API_URL}/book-appointment`, {
+    // Build the request with the slot ID
+    const requestData = {
       patientName,
       email,
-      startTime,
-      appointmentTypeId
-    });
+      slotId
+    };
+
+    console.log('Sending booking request with data:', requestData);
+
+    const response = await axios.post(`${API_URL}/book-appointment`, requestData);
     return response.data;
   } catch (error) {
     console.error('Error booking appointment:', error);
