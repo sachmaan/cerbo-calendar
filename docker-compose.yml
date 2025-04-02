@@ -19,6 +19,8 @@ services:
       - CORS_ORIGIN=http://localhost:7890  # Allow requests from frontend
     command: node --inspect=0.0.0.0:9229 server.js
     restart: unless-stopped
+    # Use host network mode for local development
+    network_mode: ${NETWORK_MODE:-bridge}
 
   # Frontend service
   frontend:
@@ -35,3 +37,5 @@ services:
     depends_on:
       - backend
     restart: unless-stopped
+    # Use host network mode for local development
+    network_mode: ${NETWORK_MODE:-bridge}
