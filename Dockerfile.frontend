@@ -9,8 +9,11 @@ RUN npm install
 # Copy the rest of the frontend application
 COPY frontend/ ./
 
-# Set the API URL for production build
-ENV REACT_APP_API_URL=http://localhost:7890/api
+# Build-time ARG that can be overridden during build
+ARG REACT_APP_API_URL=http://localhost:3001/api
+
+# Set as environment variable for the build process
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
 
 # Build the React app
 RUN npm run build
@@ -24,6 +27,16 @@ COPY --from=build /app/build /usr/share/nginx/html
 # Copy custom nginx config to handle React Router
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+# Create a script that replaces API_URL in the built JS files at runtime
+RUN echo '#!/bin/sh' > /usr/share/nginx/html/env-config.sh && \
+    echo 'echo "Configuring environment variables..."' >> /usr/share/nginx/html/env-config.sh && \
+    echo 'find /usr/share/nginx/html -type f -name "*.js" -exec sed -i "s|RUNTIME_API_URL|${API_URL}|g" {} \;' >> /usr/share/nginx/html/env-config.sh && \
+    echo 'echo "Starting nginx..."' >> /usr/share/nginx/html/env-config.sh && \
+    echo 'exec nginx -g "daemon off;"' >> /usr/share/nginx/html/env-config.sh && \
+    chmod +x /usr/share/nginx/html/env-config.sh
 
-CMD ["nginx", "-g", "daemon off;"]
+# Set a default API URL that can be overridden at runtime
+ENV API_URL=http://localhost:3001/api
+
+# Use the environment variable script as the entry point
+CMD ["/usr/share/nginx/html/env-config.sh"]

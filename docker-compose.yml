@@ -14,6 +14,8 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=3001
+      - CERBO_API_BASE_URL=${CERBO_API_BASE_URL:-https://prismsj.md-hq.com/api/v1}
+      - CERBO_API_AUTH_HEADER=${CERBO_API_AUTH_HEADER}
     command: node --inspect=0.0.0.0:9229 server.js
     restart: unless-stopped
 
@@ -22,8 +24,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.frontend
+      args:
+        - REACT_APP_API_URL=http://localhost:3001/api
     ports:
       - "7890:80"
+    environment:
+      - API_URL=http://localhost:3001/api
     depends_on:
       - backend
     restart: unless-stopped

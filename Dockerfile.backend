@@ -4,9 +4,9 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package*.json ./
-RUN npm install express cors
+RUN npm install
 
-# Copy the rest of the application
+# Copy the application code without the .env file
 COPY . .
 
 # Make sure we have the right type in package.json
@@ -14,5 +14,9 @@ RUN echo '{"type":"module"}' > /app/package.json.tmp && \
     cat /app/package.json >> /app/package.json.tmp && \
     mv /app/package.json.tmp /app/package.json
 
-EXPOSE 3001
+# Set default env variables, can be overridden at runtime
+ENV CERBO_API_BASE_URL="https://prismsj.md-hq.com/api/v1"
+ENV PORT=3001
+
+EXPOSE $PORT
 CMD ["node", "server.js"]
