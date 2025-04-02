@@ -27,10 +27,4 @@ RUN echo '#!/bin/sh' > /app/validate-env.sh && \
     echo 'exec node server.js' >> /app/validate-env.sh && \
     chmod +x /app/validate-env.sh
 
-# Required environment variables (no defaults)
-ENV CERBO_API_BASE_URL=""
-ENV CERBO_API_AUTH_HEADER=""
-ENV PORT=3001
-
-EXPOSE $PORT
 CMD ["/app/validate-env.sh"]

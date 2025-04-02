@@ -2,18 +2,7 @@ import axios from 'axios';
 
 // API URL Configuration - uses runtime config.js if available, falls back to environment variables
 const getApiUrl = () => {
-  // Check if window.ENV exists (runtime config from Docker)
-  if (window.ENV && window.ENV.API_URL) {
-    return window.ENV.API_URL;
-  }
-  
-  // Fall back to React environment variable for development
-  if (process.env.REACT_APP_API_URL) {
-    return process.env.REACT_APP_API_URL;
-  }
-  
-  // Default fallback
-  return 'http://localhost:3001/api';
+  return window.ENV.API_URL;
 };
 
 const API_URL = getApiUrl();

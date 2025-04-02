@@ -5,7 +5,7 @@ import { getAppointmentTypes, getAvailability, bookAppointment } from './backend
 import logger from './logger.js';
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 
 // Configure CORS to allow requests from frontend
 const corsOptions = {

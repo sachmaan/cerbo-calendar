@@ -18,9 +18,9 @@ RUN npm run build
 RUN echo '#!/bin/sh' > /app/run.sh && \
     echo 'set -e' >> /app/run.sh && \
     echo 'echo "Generating runtime configuration..."' >> /app/run.sh && \
-    echo 'echo "window.ENV = { API_URL: \"${API_URL:-http://localhost:3001/api}\" };" > /app/build/config.js' >> /app/run.sh && \
-    echo 'echo "Starting server on port ${PORT:-3000}..."' >> /app/run.sh && \
-    echo 'exec serve -s build -l ${PORT:-3000}' >> /app/run.sh && \
+    echo 'echo "window.ENV = { API_URL: \"${API_URL}\" };" > /app/build/config.js' >> /app/run.sh && \
+    echo 'echo "Starting server on port ${PORT}..."' >> /app/run.sh && \
+    echo 'exec serve -s build -l ${PORT}' >> /app/run.sh && \
     chmod +x /app/run.sh
 
 # Set default port but allow override
