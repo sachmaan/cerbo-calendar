@@ -7,8 +7,16 @@ import logger from './logger.js';
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Configure CORS to allow requests from frontend
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN || '*', // Allow all origins by default, or specify in env var
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true // Allow cookies to be sent with requests
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Log all requests for debugging

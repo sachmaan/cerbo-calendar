@@ -11,16 +11,17 @@ RUN npm install && npm install -g serve
 # Copy the rest of the frontend application
 COPY frontend/ ./
 
-# Build-time ARG with no default - must be provided during build
-ARG REACT_APP_API_URL
-# Validate that the ARG is provided
-RUN test -n "$REACT_APP_API_URL" || (echo "ERROR: REACT_APP_API_URL build argument is required" && false)
-
-# Set as environment variable for the build process
-ENV REACT_APP_API_URL=$REACT_APP_API_URL
-
 # Build the React app
 RUN npm run build
+
+# Create a script to generate runtime config
+RUN echo '#!/bin/sh' > /app/run.sh && \
+    echo 'set -e' >> /app/run.sh && \
+    echo 'echo "Generating runtime configuration..."' >> /app/run.sh && \
+    echo 'echo "window.ENV = { API_URL: \"${API_URL:-http://localhost:3001/api}\" };" > /app/build/config.js' >> /app/run.sh && \
+    echo 'echo "Starting server on port ${PORT:-3000}..."' >> /app/run.sh && \
+    echo 'exec serve -s build -l ${PORT:-3000}' >> /app/run.sh && \
+    chmod +x /app/run.sh
 
 # Set default port but allow override
 ENV PORT=3000
@@ -28,5 +29,5 @@ ENV PORT=3000
 # Expose the port (this is just documentation, the actual port is determined by the PORT env var)
 EXPOSE $PORT
 
-# Serve the static files
-CMD ["serve", "-s", "build", "-l", "$PORT"]
+# Use our custom startup script
+CMD ["/app/run.sh"]

@@ -1,12 +1,27 @@
 import axios from 'axios';
 
-// API URL Configuration - must be set at build time via REACT_APP_API_URL
-const API_URL = process.env.REACT_APP_API_URL;
+// API URL Configuration - uses runtime config.js if available, falls back to environment variables
+const getApiUrl = () => {
+  // Check if window.ENV exists (runtime config from Docker)
+  if (window.ENV && window.ENV.API_URL) {
+    return window.ENV.API_URL;
+  }
+  
+  // Fall back to React environment variable for development
+  if (process.env.REACT_APP_API_URL) {
+    return process.env.REACT_APP_API_URL;
+  }
+  
+  // Default fallback
+  return 'http://localhost:3001/api';
+};
+
+const API_URL = getApiUrl();
 
 // Validate API URL is set
 if (!API_URL) {
-  console.error('ERROR: API_URL not configured. Please set REACT_APP_API_URL environment variable during build.');
-  throw new Error('API URL not configured. Please set REACT_APP_API_URL environment variable during build.');
+  console.error('ERROR: API_URL not configured. Please set REACT_APP_API_URL environment variable during build or provide a runtime configuration.');
+  throw new Error('API URL not configured. Please set REACT_APP_API_URL environment variable during build or provide a runtime configuration.');
 }
 
 // Configure axios to include credentials for session cookies

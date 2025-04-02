@@ -16,6 +16,7 @@ services:
       - PORT=3001
       - CERBO_API_BASE_URL=${CERBO_API_BASE_URL}
       - CERBO_API_AUTH_HEADER=${CERBO_API_AUTH_HEADER}
+      - CORS_ORIGIN=http://localhost:7890  # Allow requests from frontend
     command: node --inspect=0.0.0.0:9229 server.js
     restart: unless-stopped
 
@@ -24,12 +25,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.frontend
-      args:
-        - REACT_APP_API_URL=http://localhost:3001/api
     ports:
       - "7890:${FRONTEND_PORT:-3000}"
     environment:
       - PORT=${FRONTEND_PORT:-3000}
+      - API_URL=${API_URL:-http://localhost:3001/api}
+    volumes:
+      - ./frontend:/app/src:ro  # Read-only mount for development
     depends_on:
       - backend
     restart: unless-stopped
